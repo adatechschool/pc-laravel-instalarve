@@ -21,11 +21,15 @@
     @include('../layouts.navigation')
     <center>
     <?php foreach ($posts as $post): ?>
-    <article>
-      {{$post->user->name}}:
-      {{$post->description}}
-      <img src="{{ $post->img_url }}" width='30%'>
-    </article>
+      <article>
+      <?php  if($post->user_id == $id_log): ?>
+          <a href="/posts/{{ $post->id }}/edit"> Editer mon post ! </a>
+      <?php endif ?>
+
+          {{$post->user->name}}:
+          {{$post->description}}
+          <img src="{{ $post->img_url }}" width='30%'>
+        </article>
     <?php endforeach; ?>
   </center>
 </div>

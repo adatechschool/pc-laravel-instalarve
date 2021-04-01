@@ -19,17 +19,27 @@
     <body>
 <div class="min-h-screen bg-gray-100">
     @include('../layouts.navigation')
-    <article>
-      <?php  if($post->user_id == $id_log): ?>
-          <form  action="{{ route('posts.destroy',$post) }}" method="get">
-            {!! method_field('delete') !!}
-            <button type="submit" name="button">suppr</button>
-          </form>
-      <?php endif ?>
-      {{$post->user->name}}:
-      {{$post->description}}
-      <img src="{{ $post->img_url }}">
-    </article>
+    <form method="POST" action="/posts/{{ $post_id }}">
+      {!! method_field('patch') !!}
+        @csrf
+        <div>
+            <x-label for="description" :value="__('Description')" />
+
+            <x-input id="description" class="block mt-1 w-full" type="text" name="description" value="{{ $post[0]->description }}" required autofocus/>
+        </div>
+
+        <div class="mt-4">
+            <x-label for="img_url" :value="__('Url image')"/>
+
+            <x-input id="img_url" class="block mt-1 w-full" type="text" name="img_url" value="{{ $post[0]->img_url }}" required autofocus />
+        </div>
+
+
+
+            <x-button class="ml-4">
+                  {{ __('submit') }}
+            </x-button>
+        </div>
 </div>
 
 

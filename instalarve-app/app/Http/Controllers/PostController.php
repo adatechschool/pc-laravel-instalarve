@@ -14,9 +14,11 @@ class PostController extends Controller
      */
     public function index()
     {
+      $id_log = auth()->user()->id;
       $posts = Post::orderBy('created_at','desc')->paginate(10);
       return view('posts.index', [
-         'posts' => $posts
+         'posts' => $posts,
+         'id_log' => $id_log
       ]);
 
     }
@@ -41,12 +43,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
       $id = auth()->user()->id;
-      print_r($id);
+
       $request->validate([
           'description' => 'required|string',
           'img_url' => 'required|string'
         ]);
-        // $user = User::create(array('name' => 'John'));
+
       $post = Post::create(array(
           'user_id' => $id,
           'description' => $request->description,
@@ -65,11 +67,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-      foreach ($post as $key => $value) {
-        print_r($key);
-      };
+      $id_log = auth()->user()->id;
       return view('posts.show', [
-         'post' => $post
+         'post' => $post,
+         'id_log' => $id_log
       ]);
     }
 
@@ -79,9 +80,17 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(int $post_id)
     {
-        //
+      $id_log = auth()->user()->id;
+      $post = Post::where("id", $post_id);
+
+
+      return view('posts.edit', [
+         'post' => $post->get(),
+         'post_id' => $post_id,
+         'id_log' => $id_log
+      ]);
     }
 
     /**
@@ -91,9 +100,16 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, int $post_id)
     {
-        //
+      $post = Post::where('id', $post_id)->get();
+
+      $post->toQuery()->update(array("description" => $request->input('description'),"img_url" => $request->input('img_url')));
+
+
+
+     // redirect with flash data to posts.show
+     return redirect()->route('posts.show', $post[0]->id);
     }
 
     /**
@@ -104,6 +120,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->get()->delete();
     }
 }
