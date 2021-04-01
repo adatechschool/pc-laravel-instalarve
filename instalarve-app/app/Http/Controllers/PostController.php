@@ -15,7 +15,7 @@ class PostController extends Controller
     public function index()
     {
       $id_log = auth()->user()->id;
-      $posts = Post::orderBy('created_at','desc')->paginate(10);
+      $posts = Post::orderBy('created_at','desc')->paginate(50);
       return view('posts.index', [
          'posts' => $posts,
          'id_log' => $id_log
