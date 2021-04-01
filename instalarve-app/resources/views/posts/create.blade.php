@@ -19,11 +19,26 @@
     <body>
 <div class="min-h-screen bg-gray-100">
     @include('../layouts.navigation')
-    <article>
-      {{$post->user->name}}:
-      {{$post->description}}
-      <img src="{{ $post->img_url }}">
-    </article>
+    <form method="POST" action="{{ route('posts.store') }}">
+        @csrf
+        <div>
+            <x-label for="description" :value="__('Description')" />
+
+            <x-input id="description" class="block mt-1 w-full" type="text" name="description" required autofocus/>
+        </div>
+
+        <div class="mt-4">
+            <x-label for="img_url" :value="__('Url image')"/>
+
+            <x-input id="img_url" class="block mt-1 w-full" type="text" name="img_url" required autofocus />
+        </div>
+
+
+
+            <x-button class="ml-4">
+                  {{ __('submit') }}
+            </x-button>
+        </div>
 </div>
 
 

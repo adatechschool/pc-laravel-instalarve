@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +25,8 @@ Route::resource('users', UserController::class);
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard',
+    [ 'name' => auth()->user()->name]);
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

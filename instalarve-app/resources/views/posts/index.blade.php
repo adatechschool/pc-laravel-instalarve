@@ -19,11 +19,15 @@
     <body>
 <div class="min-h-screen bg-gray-100">
     @include('../layouts.navigation')
+    <center>
+    <?php foreach ($posts as $post): ?>
     <article>
       {{$post->user->name}}:
       {{$post->description}}
-      <img src="{{ $post->img_url }}">
+      <img src="{{ $post->img_url }}" width='30%'>
     </article>
+    <?php endforeach; ?>
+  </center>
 </div>
 
 

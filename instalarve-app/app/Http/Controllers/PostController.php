@@ -14,7 +14,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+      $posts = Post::orderBy('created_at','desc')->paginate(10);
+      return view('posts.index', [
+         'posts' => $posts
+      ]);
+
     }
 
     /**
@@ -24,7 +28,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('posts.create');
     }
 
     /**
@@ -35,7 +40,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $id = auth()->user()->id;
+      print_r($id);
+      $request->validate([
+          'description' => 'required|string',
+          'img_url' => 'required|string'
+        ]);
+        // $user = User::create(array('name' => 'John'));
+      $post = Post::create(array(
+          'user_id' => $id,
+          'description' => $request->description,
+          'img_url' => $request->img_url
+      ));
+
+
+      return redirect('posts');
     }
 
     /**
@@ -46,6 +65,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+      foreach ($post as $key => $value) {
+        print_r($key);
+      };
       return view('posts.show', [
          'post' => $post
       ]);
