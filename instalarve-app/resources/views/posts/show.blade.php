@@ -50,7 +50,12 @@
                         </x-dropdown-link>
 
                         <x-dropdown-link href="/posts/{{$post->id}}">
-                            {{ __('Supprimer ce post') }}
+                          <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+
+                            <button type="submit">{{ __('Supprimer ce post') }}</button>
+                          </form>
                         </x-dropdown-link>
 
 

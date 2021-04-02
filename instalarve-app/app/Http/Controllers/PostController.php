@@ -118,8 +118,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(int $post_id)
     {
-        $post->get()->delete();
+      $post = Post::where('id', $post_id)->get();
+      $post->toQuery()->delete();
+      return redirect()->route('posts.index'); 
     }
 }
