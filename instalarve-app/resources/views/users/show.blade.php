@@ -26,7 +26,7 @@
           <div class="md:w-3/12 md:ml-16">
             <!-- profile image -->
             <img class="w-20 h-20 md:w-40 md:h-40 object-cover rounded-full
-                         border-2 border-pink-600 p-1" src="https://images.unsplash.com/photo-1502791451862-7bd8c1df43a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80" alt="profile">
+                         border-2 border-pink-600 p-1" src="{{$user->profil_pic}}" alt="profile">
           </div>
 
           <!-- profile meta -->

@@ -25,6 +25,12 @@
                 <x-input id="biography" class="block mt-1 w-full" type="text" name="biography" :value="old('biography')" required autofocus />
             </div>
 
+            <div class="mt-4">
+                <x-label for="profil_pic" :value="__('Photo de profil')" />
+
+                <x-input id="profil_pic" class="block mt-1 w-full" type="text" name="profil_pic" :value="old('https://i.pinimg.com/236x/f3/61/e3/f361e30b86fee7661463bf331de5b1b1.jpg')" required autofocus />
+            </div>
+
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />

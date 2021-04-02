@@ -27,7 +27,7 @@
     <div class="w-full flex justify-between p-3">
       <div class="flex">
         <div class="rounded-full h-8 w-8 bg-gray-500 flex items-center justify-center overflow-hidden">
-          <img src="https://avatars0.githubusercontent.com/u/38799309?v=4" alt="profilepic">
+          <img src="{{$post->user->profil_pic}}" alt="profilepic">
         </div>
         <span class="pt-1 ml-2 font-bold text-sm"><a href="/users/{{$post->user->id}}">{{$post->user->name}}</a></span>
       </div>
