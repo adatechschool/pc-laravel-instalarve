@@ -46,8 +46,17 @@
                 <div class="px-3 pb-2">
                     <div class="w-f flex gap-5">
                         <div class="pt-2">
-                            <i class="far fa-heart cursor-pointer"></i>
-                            <span class="text-sm text-gray-400 font-medium">x likes</span>
+                          <form method="POST" action="{{ route('likes.store') }}">
+                              @csrf
+                            <x-input type="hidden" id="post_id" class="block mt-1 w-full" name="post_id" value="{{ $post->id }}"/>
+                                  <button class="ml-2">
+                                        <i class="far fa-heart cursor-pointer"></i>
+                                  </button>
+
+                            </form>
+                            </div>
+
+                            <span class="text-sm text-gray-400 font-medium">{{ $post->likes->count() }} likes</span>
                             <!-- TODO: Ajouter systeme de likes et display -->
                         </div>
                         <div class="pt-2">
@@ -63,7 +72,7 @@
                             <span class="font-bold mr-2">{{$post->user->name}}</span>{{$post->description}}
                         </div>
                     </div>
-                    
+
                     <!-- TODO: Commentaires -->
                     <?php if (count($post->comments) > 0 ):?>
                     <a href="/posts/{{ $post->id }}">

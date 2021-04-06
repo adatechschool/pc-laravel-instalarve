@@ -35,7 +35,25 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $uid = auth()->user()->id;
+      $request->validate([
+          'post_id' => 'required|integer'
+        ]);
+
+      $matchThese = ['post_id' => $request->post_id , 'user_id' => $uid];
+
+        if ((Like::where($matchThese)->get())){
+
+          $like = Like::create(array(
+          'user_id' => $uid,
+          'post_id' => $request->post_id
+        ));
+      }
+
+
+
+
+      return redirect('posts');
     }
 
     /**
