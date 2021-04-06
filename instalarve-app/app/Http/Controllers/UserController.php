@@ -53,7 +53,8 @@ class UserController extends Controller
 
       return view('users.show', [
          'user' => $user[0],
-         'posts' => $user[0]->posts
+         'posts' => $user[0]->posts,
+         'uid' => auth()->user()->id
       ]);
 
     }
@@ -64,9 +65,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(int $user_id)
     {
-      //
+        if (auth()->user()->id != $user_id) {
+            return redirect()->route('posts.index');
+        }
+        $user = User::where("id", $user_id)->get();
+
+      return view('users.edit', [
+         'user_id' => $user_id,
+         'user' => $user[0],
+         'posts' => $user[0]->posts
+      ]);
     }
 
     /**
@@ -76,9 +86,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, int $user_id)
     {
         //
+      $user = User::where("id", $user_id)->get();
+      $user->toQuery()->update(array("biography" => $request->input('biography'),"profil_pic" => $request->input('profil_pic')));
+      return redirect()->route('users.show', $user[0]->id);
     }
 
     /**

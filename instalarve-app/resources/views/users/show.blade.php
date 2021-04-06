@@ -37,12 +37,18 @@
               </h2>
 
               <!-- follow button -->
+              <?php if ($uid != $user->id) :?>
               <a href="#" class="bg-blue-500 px-2 py-1
                             text-white font-semibold text-sm rounded block text-center
                             sm:inline-block block">Follow</a>
+              <?php else: ?>
+              <a href="{{$uid}}/edit" class="bg-blue-500 px-2 py-1
+                            text-white font-semibold text-sm rounded block text-center
+                            sm:inline-block block">Edit Profile</a>
+              <?php endif ?>
             </div>
 
-    <p>{{ $user->biography }} ! </p>
+    <p>{{ $user->biography }}</p>
   </div>
   </header>
     <div class="container mx-auto p-8">
