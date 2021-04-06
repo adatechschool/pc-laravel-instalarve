@@ -92,8 +92,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(int $comment_id)
     {
-        //
+      $comment = Comment::where('id', $comment_id)->get();
+      $comment->toQuery()->delete();
+      return redirect()->route('posts.index');
     }
 }

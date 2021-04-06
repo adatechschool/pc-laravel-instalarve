@@ -29,7 +29,7 @@
         <div class="rounded-full h-8 w-8 bg-gray-500 flex items-center justify-center overflow-hidden">
           <img src="{{$post->user->profil_pic}}" alt="profilepic">
         </div>
-        <span class="pt-1 ml-2 font-bold text-sm"><a href="/users/{{$post->user->id}}">{{$post->user->name}}</a></span>
+        <span class="pt-1 ml-2 font-bold text-sm "><a href="/users/{{$post->user->id}}">{{$post->user->name}}</a></span>
       </div>
 
     </div>
@@ -38,6 +38,7 @@
     <img class="w-full bg-cover" src="{{ $post->img_url }}">
   </a>
     <div class="px-3 pb-2">
+      <div class="w-f flex gap-5">
       <div class="pt-2">
         <i class="far fa-heart cursor-pointer"></i>
         <span class="text-sm text-gray-400 font-medium">x likes</span>
@@ -46,20 +47,24 @@
       <div class="pt-2">
         <a href="/posts/{{ $post->id }}">
           <i class="far fa-comment cursor-pointer"></i>
-          <span class="text-sm text-gray-400 font-medium">blabla</span>
+          <span class="text-sm text-gray-400 font-medium">{{ $post->comments->count()}}</span>
         </a>
         <!-- TODO: Ajouter systeme de likes et display -->
       </div>
+    </div>
       <div class="pt-1">
         <div class="mb-2 text-sm">
           <span class="font-bold mr-2">{{$post->user->name}}</span>{{$post->description}}
         </div>
       </div>
       <!-- TODO: Commentaires -->
-     <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all 14 comments</div>
-      <div class="mb-2">
-        <div class="mb-2 text-sm">
-          <a href="/users/{{ $post->comments[0]->user_id }}"<span class="font-bold mr-2">{{ $post->comments[0]->user->name }}</span> </a>{{ $post->comments[0]->content}}
+     <a href="/posts/{{ $post->id }}"><div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all {{ $post->comments->count()}} comments</div>
+      <div class="mb-2 flex flex-row gap-3">
+          <div class="rounded-full h-5 w-5 bg-gray-500 flex items-center justify-center overflow-hidden">
+            <img src="{{$post->comments[0]->user->profil_pic}}" alt="profilepic">
+          </div>
+          <div class="mb-2 text-sm">
+          <a href="/users/{{ $post->comments[0]->user_id }}"<span class="font-bold mr-2 text-gray-500 hover:text-black">{{ $post->comments[0]->user->name }}</span> </a>{{ $post->comments[0]->content}}
         </div>
 
       </div>

@@ -54,11 +54,20 @@
     <a href="/posts/{{ $post->id }}">
     <img class="w-full bg-cover" src="{{ $post->img_url }}">
   </a>
-    <div class="px-3 pb-2">
-      <div class="pt-2">
-        <i class="far fa-heart cursor-pointer"></i>
-        <span class="text-sm text-gray-400 font-medium">x likes</span>
-      </div>
+  <div class="w-f flex gap-5">
+  <div class="pt-2">
+    <i class="far fa-heart cursor-pointer"></i>
+    <span class="text-sm text-gray-400 font-medium">x likes</span>
+    <!-- TODO: Ajouter systeme de likes et display -->
+  </div>
+  <div class="pt-2">
+    <a href="/posts/{{ $post->id }}">
+      <i class="far fa-comment cursor-pointer"></i>
+      <span class="text-sm text-gray-400 font-medium">{{ $post->comments->count() }}</span>
+    </a>
+    <!-- TODO: Ajouter systeme de likes et display -->
+  </div>
+</div>
     </div>
   </div>
     <?php endforeach; ?>
