@@ -39,6 +39,7 @@
             <x-button class="ml-4">
                   {{ __('submit') }}
             </x-button>
+    </form>
         </div>
 </div>
 
