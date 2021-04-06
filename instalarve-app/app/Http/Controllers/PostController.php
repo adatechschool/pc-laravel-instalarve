@@ -80,15 +80,14 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $post_id)
+    public function edit(Post $post)
     {
       $id_log = auth()->user()->id;
-      $post = Post::where("id", $post_id);
 
 
       return view('posts.edit', [
          'post' => $post->get(),
-         'post_id' => $post_id,
+         'post_id' => $post->id,
          'id_log' => $id_log
       ]);
     }
