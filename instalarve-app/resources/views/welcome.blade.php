@@ -44,7 +44,6 @@
                                     text-white font-semibold text-sm rounded block text-center
                                     sm:inline-block block">Register</a>
                         @endif
-                        @endauth
                     </div>
                     @endif
                 </div>
