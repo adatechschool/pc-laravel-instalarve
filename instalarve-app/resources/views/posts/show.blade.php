@@ -85,12 +85,26 @@
         </div>
       </div>
       <!-- TODO: Commentaires -->
-      <!-- <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all 14 comments</div>
+      <?php foreach ($post->comments as $comment): ?>
       <div class="mb-2">
         <div class="mb-2 text-sm">
-          <span class="font-medium mr-2">razzle_dazzle</span> Dude! How cool! I went to New Zealand last summer and had a blast taking the tour! So much to see! Make sure you bring a good camera when you go!
+          <span class="font-bold mr-2">{{ $comment->user->name }}</span> {{ $comment->content }}
         </div>
-      </div> -->
+      </div>
+    <?php endforeach ?>
+      <form method="POST" action="{{ route('comments.store') }}">
+          @csrf
+          <div>
+              <x-label for="content" :value="__('Mon Commentaire')" />
+
+              <x-input id="content" class="block mt-1 w-full" type="text" name="content" required autofocus/>
+          </div>
+            <x-input type="hidden" id="post_id" class="block mt-1 w-full" name="post_id" value="{{ $post->id }}"/>
+              <x-button class="ml-4">
+                    {{ __('submit') }}
+              </x-button>
+          </div>
+        </form>
     </div>
   </div>
   </div>

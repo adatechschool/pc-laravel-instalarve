@@ -43,18 +43,26 @@
         <span class="text-sm text-gray-400 font-medium">x likes</span>
         <!-- TODO: Ajouter systeme de likes et display -->
       </div>
+      <div class="pt-2">
+        <a href="/posts/{{ $post->id }}">
+          <i class="far fa-comment cursor-pointer"></i>
+          <span class="text-sm text-gray-400 font-medium">blabla</span>
+        </a>
+        <!-- TODO: Ajouter systeme de likes et display -->
+      </div>
       <div class="pt-1">
         <div class="mb-2 text-sm">
           <span class="font-bold mr-2">{{$post->user->name}}</span>{{$post->description}}
         </div>
       </div>
       <!-- TODO: Commentaires -->
-      <!-- <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all 14 comments</div>
+     <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all 14 comments</div>
       <div class="mb-2">
         <div class="mb-2 text-sm">
-          <span class="font-medium mr-2">razzle_dazzle</span> Dude! How cool! I went to New Zealand last summer and had a blast taking the tour! So much to see! Make sure you bring a good camera when you go!
+          <a href="/users/{{ $post->comments[0]->user_id }}"<span class="font-bold mr-2">{{ $post->comments[0]->user->name }}</span> </a>{{ $post->comments[0]->content}}
         </div>
-      </div> -->
+
+      </div>
     </div>
   </div>
     <?php endforeach; ?>
