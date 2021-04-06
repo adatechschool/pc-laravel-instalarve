@@ -16,6 +16,9 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
+    if(Auth::check()) {
+        return redirect()->route('posts');
+    }
     return view('welcome');
 });
 
