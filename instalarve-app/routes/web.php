@@ -17,6 +17,9 @@ use App\Http\Controllers\CommentController;
 */
 
 Route::get('/', function () {
+    if(Auth::check()) {
+        return redirect()->route('posts.index');
+    }
     return view('welcome');
 });
 
