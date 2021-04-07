@@ -40,20 +40,28 @@ class LikeController extends Controller
           'post_id' => 'required|integer'
         ]);
 
-      $matchThese = ['post_id' => $request->post_id , 'user_id' => $uid];
+      // $matchThese = ['post_id' => $request->post_id , 'user_id' => $uid];
+      // $likeExist = Like::select('*')
+      //           ->where('post_id', '=', $request->post_id)
+      //           ->where('user_id', '=', $uid)
+      //           ->get();
 
-        if ((Like::where($matchThese)->get())){
+      $likeExist = Like::where(['post_id' => $request->post_id , 'user_id' => $uid])->get();
+      print_r($likeExist);
 
+        if ($likeExist->count() == 0){
           $like = Like::create(array(
           'user_id' => $uid,
           'post_id' => $request->post_id
         ));
-      }
+      } else {
+          $likeExist[0]->delete();
+        }
 
 
 
 
-      return redirect('posts');
+        return redirect('posts');
     }
 
     /**

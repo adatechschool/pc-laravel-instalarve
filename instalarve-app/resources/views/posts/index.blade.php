@@ -27,8 +27,7 @@
 
         <div class="flex flex-col items-center">
             <?php foreach ($posts as $post): ?>
-            <div
-                class=" rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-3 md:mx-0 lg:mx-0 justify-self-center  my-4">
+            <div class=" rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-3 md:mx-0 lg:mx-0 justify-self-center  my-4">
                 <div class="w-full flex justify-between p-3">
                     <div class="flex">
                         <div class="rounded-full h-8 w-8 bg-gray-500 flex items-center justify-center overflow-hidden">
@@ -58,13 +57,14 @@
 
                             <span class="text-sm text-gray-400 font-medium">{{ $post->likes->count() }} likes</span>
                             <!-- TODO: Ajouter systeme de likes et display -->
-                        </div>
+                        
                         <div class="pt-2">
                             <a href="/posts/{{ $post->id }}">
                                 <i class="far fa-comment cursor-pointer"></i>
                                 <span class="text-sm text-gray-400 font-medium">{{ $post->comments->count()}}</span>
                             </a>
                             <!-- TODO: Ajouter systeme de likes et display -->
+                        </div>
                         </div>
                     </div>
                     <div class="pt-1">
@@ -80,8 +80,7 @@
                             {{ $post->comments->count()}} comments</div>
 
                         <div class="mb-2 flex flex-row gap-3">
-                            <div
-                                class="rounded-full h-5 w-5 bg-gray-500 flex items-center justify-center overflow-hidden">
+                            <div class="rounded-full h-5 w-5 bg-gray-500 flex items-center justify-center overflow-hidden">
 
                                 <img src="{{$post->comments[0]->user->profil_pic}}" alt="profilepic">
                             </div>
@@ -94,8 +93,9 @@
                         </div>
                         <?php endif ?>
                 </div>
+
+            <?php endforeach ?>
             </div>
-            <?php endforeach; ?>
         </div>
     </div>
 
