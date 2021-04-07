@@ -1,1 +1,1 @@
-<img src="/images/larve.png" width="48px">
+<img src="/images/larve.png" class="w-16">

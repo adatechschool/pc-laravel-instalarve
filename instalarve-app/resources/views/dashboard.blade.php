@@ -4,5 +4,7 @@
             {{ __('InstaLarve') }}
         </h2>
     </x-slot>
-<p> Coucou {{ $name }} ! </p>
+    <x-slot name='slot'>
+        wwww
+    </x-slot>
 </x-app-layout>
