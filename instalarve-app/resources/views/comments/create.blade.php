@@ -19,30 +19,15 @@
     <body>
 <div class="min-h-screen bg-gray-100">
     @include('../layouts.navigation')
-    <form method="POST" action="/posts/{{ $post_id }}">
-      {!! method_field('patch') !!}
+    <form method="POST" action="{{ route('comments.create') }}">
         @csrf
         <div>
-            <x-label for="description" :value="__('Description')" />
+            <x-label for="content" :value="__('Mon Commentaire')" />
 
-            <x-input id="description" class="block mt-1 w-full" type="text" name="description" value="{{ $post[0]->description }}" required autofocus/>
+            <x-input id="content" class="block mt-1 w-full" type="text" name="content" required autofocus/>
         </div>
-
-        <div class="mt-4">
-            <x-label for="img_url" :value="__('Url image')"/>
-
-            <x-input id="img_url" class="block mt-1 w-full" type="text" name="img_url" value="{{ $post[0]->img_url }}" required autofocus />
-        </div>
-
-
-
             <x-button class="ml-4">
                   {{ __('submit') }}
             </x-button>
-    </form>
         </div>
 </div>
-
-
-</body>
-</html>

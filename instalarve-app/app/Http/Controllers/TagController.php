@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Http\Request;
-use App\Models\Post;
 
-
-class UserController extends Controller
+class TagController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -44,60 +41,44 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Tag $tag)
     {
-    //   $user = User::where('id', $uid)->get();
-
-      return view('users.show', [
-         'user' => $user,
-         'posts' => $user->posts,
-         'uid' => auth()->user()->id
-      ]);
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Tag $tag)
     {
-        if (auth()->user()->id != $user->id) {
-            return redirect()->route('posts.index');
-        }
-
-      return view('users.edit', [
-         'user_id' => $user->id,
-         'user' => $user,
-         'posts' => $user->posts
-      ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Tag $tag)
     {
-      $user->update(array("biography" => $request->input('biography'),"profil_pic" => $request->input('profil_pic')));
-      return redirect()->route('users.show', $user->id);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Tag $tag)
     {
         //
     }

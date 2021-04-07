@@ -14,11 +14,21 @@ class Post extends Model
   {
     return $this->belongsTo(User::class);
   }
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
+  public function likes()
+  {
+    return $this->hasMany(Like::class);
+  }
 
   protected $fillable = [
     'description',
     'img_url',
     'user_id',
   ];
+
 
 }

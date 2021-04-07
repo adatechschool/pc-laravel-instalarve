@@ -80,15 +80,14 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(int $post_id)
+    public function edit(Post $post)
     {
       $id_log = auth()->user()->id;
-      $post = Post::where("id", $post_id);
 
 
       return view('posts.edit', [
          'post' => $post->get(),
-         'post_id' => $post_id,
+         'post_id' => $post->id,
          'id_log' => $id_log
       ]);
     }
@@ -100,16 +99,15 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $post_id)
+    public function update(Request $request, Post $post)
     {
-      $post = Post::where('id', $post_id)->get();
 
-      $post->toQuery()->update(array("description" => $request->input('description'),"img_url" => $request->input('img_url')));
+      $post->update(array("description" => $request->input('description'),"img_url" => $request->input('img_url')));
 
 
 
      // redirect with flash data to posts.show
-     return redirect()->route('posts.show', $post[0]->id);
+     return redirect()->route('posts.show', $post->id);
     }
 
     /**
@@ -118,10 +116,9 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $post_id)
+    public function destroy(Post $post)
     {
-      $post = Post::where('id', $post_id)->get();
-      $post->toQuery()->delete();
+      $post->delete();
       return redirect()->route('posts.index'); 
     }
 }

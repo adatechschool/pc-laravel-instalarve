@@ -4,21 +4,19 @@
             <div class="grid justify-items-center">
                 <x-application-logo />
                 <div class="flex flex-col items-center">
-                    <div class="flex flex-col items-center">
-                        <h1 class="name">Instalarve</h1>
-                        <p>Un super r&eacute;seau social trop bien !</p>
-                    </div>
-                    <div>
-                        <div class="px-6 py-4 sm:block">
-                            <a href="{{route('login')}}" ><x-button class="bg-blue-500 px-2 py-1
-                                text-white font-semibold text-sm rounded block text-center
-                                sm:inline-block block">{{ __('Log In') }}</x-button></a>
-                            <a href="{{route('register')}}" ><x-button class=" px-2 py-1 
-                                text-white font-semibold text-sm rounded block text-center
-                                sm:inline-block block">
-                                            {{ __('Register') }}
-                                        </x-button></a>
-                        </div>
+                    <h1 class="name">InstaLarve</h1>
+                    <p>Un super r&eacute;seau social trop bien !</p>
+                </div>
+                <div>
+                    <div class="px-6 py-4 sm:block">
+                        <a href="{{route('login')}}" ><x-button class="bg-blue-500 px-2 py-1
+                            text-white font-semibold text-sm rounded block text-center
+                            sm:inline-block block">{{ __('Log In') }}</x-button></a>
+                        <a href="{{route('register')}}" ><x-button class=" px-2 py-1 
+                            text-white font-semibold text-sm rounded block text-center
+                            sm:inline-block block">
+                                        {{ __('Register') }}
+                                    </x-button></a>
                     </div>
                 </div>
                 <footer>
@@ -29,9 +27,7 @@
                     <a href="https://github.com/QuentinBerard" class="font-bold text-blue-500">Quentin</a> & 
                     <a href="https://github.com/tob-0" class="font-bold text-indigo-500">Thomas</a>.
                 </footer>
-            </div>
-            
+            </div>            
         </article>
     </x-slot>
 </x-guest-layout>
-

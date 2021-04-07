@@ -37,12 +37,18 @@
               </h2>
 
               <!-- follow button -->
+              <?php if ($uid != $user->id) :?>
               <a href="#" class="bg-blue-500 px-2 py-1
                             text-white font-semibold text-sm rounded block text-center
                             sm:inline-block block">Follow</a>
+              <?php else: ?>
+              <a href="{{$uid}}/edit" class="bg-blue-500 px-2 py-1
+                            text-white font-semibold text-sm rounded block text-center
+                            sm:inline-block block">Edit Profile</a>
+              <?php endif ?>
             </div>
 
-    <p>{{ $user->biography }} ! </p>
+    <p>{{ $user->biography }}</p>
   </div>
   </header>
     <div class="container mx-auto p-8">
@@ -54,11 +60,20 @@
     <a href="/posts/{{ $post->id }}">
     <img class="w-full bg-cover" src="{{ $post->img_url }}">
   </a>
-    <div class="px-3 pb-2">
-      <div class="pt-2">
-        <i class="far fa-heart cursor-pointer"></i>
-        <span class="text-sm text-gray-400 font-medium">x likes</span>
-      </div>
+  <div class="w-f flex gap-5">
+  <div class="pt-2">
+    <i class="far fa-heart cursor-pointer"></i>
+    <span class="text-sm text-gray-400 font-medium">x likes</span>
+    <!-- TODO: Ajouter systeme de likes et display -->
+  </div>
+  <div class="pt-2">
+    <a href="/posts/{{ $post->id }}">
+      <i class="far fa-comment cursor-pointer"></i>
+      <span class="text-sm text-gray-400 font-medium">{{ $post->comments->count() }}</span>
+    </a>
+    <!-- TODO: Ajouter systeme de likes et display -->
+  </div>
+</div>
     </div>
   </div>
     <?php endforeach; ?>

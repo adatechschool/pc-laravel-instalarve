@@ -74,23 +74,64 @@
     <img class="w-full bg-cover" src="{{ $post->img_url }}">
   </a>
     <div class="px-3 pb-2">
+      <div class="w-f flex gap-5">
       <div class="pt-2">
         <i class="far fa-heart cursor-pointer"></i>
         <span class="text-sm text-gray-400 font-medium">x likes</span>
         <!-- TODO: Ajouter systeme de likes et display -->
       </div>
+      <div class="pt-2">
+        <a href="/posts/{{ $post->id }}">
+          <i class="far fa-comment cursor-pointer"></i>
+          <span class="text-sm text-gray-400 font-medium">{{ $post->comments->count()}}</span>
+        </a>
+        <!-- TODO: Ajouter systeme de likes et display -->
+      </div>
+    </div>
       <div class="pt-1">
         <div class="mb-2 text-sm">
           <span class="font-bold mr-2">{{$post->user->name}}</span>{{$post->description}}
         </div>
       </div>
       <!-- TODO: Commentaires -->
-      <!-- <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all 14 comments</div>
-      <div class="mb-2">
-        <div class="mb-2 text-sm">
-          <span class="font-medium mr-2">razzle_dazzle</span> Dude! How cool! I went to New Zealand last summer and had a blast taking the tour! So much to see! Make sure you bring a good camera when you go!
+      <?php foreach ($post->comments as $comment): ?>
+      <div class="mb-5">
+        <div class="mb-2 flex flex-row justify-between">
+          <div class="flex flex-row gap-3">
+            <div class="rounded-full h-5 w-5 bg-gray-500 flex items-center justify-center overflow-hidden">
+              <img src="{{$comment->user->profil_pic}}" alt="profilepic">
+            </div>
+        <div class="text-sm">
+          <span class="font-bold mr-2 text-gray-500 hover:text-black">{{ $comment->user->name }}</span> {{ $comment->content }}
         </div>
-      </div> -->
+      </div>
+      <?php if ($comment->user_id == $id_log): ?>
+        <div class="text-right space-between">
+        <a href="/comments/{{$comment->id}}">
+            <form action="{{ route('comments.destroy', $comment->id) }}" method="post">
+              @csrf
+              @method('delete')
+
+              <button type="submit"><i class="fas fa-times"></i></button>
+            </form>
+          </a>
+          </div>
+        <?php endif ?>
+      </div>
+    <?php endforeach ?>
+      <form method="POST" action="{{ route('comments.store') }}">
+          @csrf
+          <div>
+              <x-label for="content" :value="__('Mon Commentaire')" />
+
+              <x-input id="content" class="block mt-1 w-full focus:ring-1" type="text" name="content" required autofocus/>
+          </div>
+            <x-input type="hidden" id="post_id" class="block mt-1 w-full" name="post_id" value="{{ $post->id }}"/>
+              <x-button class="ml-2">
+                    {{ __('submit') }}
+              </x-button>
+          </div>
+        </form>
     </div>
   </div>
   </div>

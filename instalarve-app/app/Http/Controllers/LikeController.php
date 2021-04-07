@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Like;
 use Illuminate\Http\Request;
-use App\Models\Post;
 
-
-class UserController extends Controller
+class LikeController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -38,66 +35,76 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $uid = auth()->user()->id;
+      $request->validate([
+          'post_id' => 'required|integer'
+        ]);
+
+      // $matchThese = ['post_id' => $request->post_id , 'user_id' => $uid];
+      // $likeExist = Like::select('*')
+      //           ->where('post_id', '=', $request->post_id)
+      //           ->where('user_id', '=', $uid)
+      //           ->get();
+
+      $likeExist = Like::where(['post_id' => $request->post_id , 'user_id' => $uid])->get();
+      print_r($likeExist);
+
+        if ($likeExist->count() == 0){
+          $like = Like::create(array(
+          'user_id' => $uid,
+          'post_id' => $request->post_id
+        ));
+      } else {
+          $likeExist[0]->delete();
+        }
+
+
+
+
+        return redirect('posts');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Like $like)
     {
-    //   $user = User::where('id', $uid)->get();
-
-      return view('users.show', [
-         'user' => $user,
-         'posts' => $user->posts,
-         'uid' => auth()->user()->id
-      ]);
-
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Like $like)
     {
-        if (auth()->user()->id != $user->id) {
-            return redirect()->route('posts.index');
-        }
-
-      return view('users.edit', [
-         'user_id' => $user->id,
-         'user' => $user,
-         'posts' => $user->posts
-      ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Like $like)
     {
-      $user->update(array("biography" => $request->input('biography'),"profil_pic" => $request->input('profil_pic')));
-      return redirect()->route('users.show', $user->id);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Like $like)
     {
         //
     }
