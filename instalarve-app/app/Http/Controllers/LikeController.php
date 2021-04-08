@@ -47,7 +47,7 @@ class LikeController extends Controller
                 'user_id' => auth()->user()->id
               ])->delete();
         if($res){
-          return response()->json(['count' => Post::find($request->post_id)->likes->count()]);
+          return response()->json(['count' => Post::find($request->post_id)->likes->count(), 'canLike'=> $post->isLikedByLoggedUser()]);
         }
 
       } else {
@@ -55,9 +55,10 @@ class LikeController extends Controller
         'user_id' => auth()->user()->id,
         'post_id' => $request->post_id
       ));
-      return response()->json(['count' => Post::find($request->post_id)->likes->count()]);
+      if($like){
+        return response()->json(['count' => Post::find($request->post_id)->likes->count(), 'canLike'=> $post->isLikedByLoggedUser()]);
       }
-
+    }
     }
 
     //

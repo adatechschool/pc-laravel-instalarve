@@ -48,11 +48,16 @@
                         <div class="pt-2">
                           <form method="POST" action="{{ route('likes.store') }}" id="form-like">
                               @csrf
-                              <p class="text-sm text-gray-400 font-medium" id="count-like">{{ $post->likes->count() }}</p>
+                              <p class="text-sm text-gray-400 font-medium" id="count-like-{{ $post->id }}">{{ $post->likes->count() }}</p>
                             <x-input type="hidden" id="post_id-like" class="block mt-1 w-full" name="post_id" value="{{ $post->id }}"/>
 
-                                  <button type="submit" class="ml-2">
-                                        <i class="far fa-heart cursor-pointer"></i>
+                                  <button id="button-like" type="submit" class="ml-2">
+                                    <?php if ($post->isLikedByLoggedUser()): ?>
+                                        <i id="heart-like" class="text-red-500 fas fa-heart"></i>
+                                      <?php elseif (!($post->isLikedByLoggedUser())): ?>
+
+                                          <i id="heart-like" class="far fa-heart cursor-pointer"></i>
+                                    <?php endif ?>
                                   </button>
 
                             </form>

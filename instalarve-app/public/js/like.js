@@ -8,11 +8,9 @@ forms.forEach((form) => {
 
     const url = form.getAttribute('action');
     const token = document.querySelector('meta[name="csrf-token"]').content;
-
+    const heart = form.querySelector('#heart-like');
     const postId = form.querySelector('#post_id-like').value;
-    var count = form.querySelector('#count-like');
-    console.log(count);
-
+    var count = document.getElementById('count-like-'+postId);
 
 
     fetch(url, {
@@ -22,19 +20,17 @@ forms.forEach((form) => {
       credentials: "same-origin",
       method: 'post',
       body: new FormData(document.getElementById('form-like'))
-      // body: JSON.stringify({
-      //   post_id : postId
+
       }).then(response => {
 
       response.json().then(data => {
-
-        return count.innerHtml = data.count;
-        console.log(count);
-        console.log(data.count);
-
-
+        if (!data.canLike) { heart.className = "text-red-500 fas fa-heart"}
+        else { heart.className = "far fa-heart cursor-pointer"}
+        count.innerText = data.count;
         });
       });
       });
 
   });
+
+//<i class="text-red-500 fas fa-heart"></i>
