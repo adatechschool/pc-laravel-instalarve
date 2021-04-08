@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Like;
+use Illuminate\Http\JsonResponse;
+
 
 class PostController extends Controller
 {
@@ -23,6 +26,8 @@ class PostController extends Controller
 
     }
 
+
+  
     /**
      * Show the form for creating a new resource.
      *
@@ -119,6 +124,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
       $post->delete();
-      return redirect()->route('posts.index'); 
+      return redirect()->route('posts.index');
     }
 }

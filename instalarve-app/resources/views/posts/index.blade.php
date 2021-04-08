@@ -19,6 +19,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="../js/like.js" defer></script>
 </head>
 
 <body>
@@ -45,19 +46,18 @@
                 <div class="px-3 pb-2">
                     <div class="w-f flex gap-5">
                         <div class="pt-2">
-                          <form method="POST" action="{{ route('likes.store') }}">
+                          <form method="POST" action="{{ route('likes.store') }}" id="form-like">
                               @csrf
-                            <x-input type="hidden" id="post_id" class="block mt-1 w-full" name="post_id" value="{{ $post->id }}"/>
-                                  <button class="ml-2">
+                              <p class="text-sm text-gray-400 font-medium" id="count-like">{{ $post->likes->count() }}</p>
+                            <x-input type="hidden" id="post_id-like" class="block mt-1 w-full" name="post_id" value="{{ $post->id }}"/>
+
+                                  <button type="submit" class="ml-2">
                                         <i class="far fa-heart cursor-pointer"></i>
                                   </button>
 
                             </form>
                             </div>
 
-                            <span class="text-sm text-gray-400 font-medium">{{ $post->likes->count() }} likes</span>
-                            <!-- TODO: Ajouter systeme de likes et display -->
-                        
                         <div class="pt-2">
                             <a href="/posts/{{ $post->id }}">
                                 <i class="far fa-comment cursor-pointer"></i>

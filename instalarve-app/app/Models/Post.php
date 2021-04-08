@@ -24,6 +24,11 @@ class Post extends Model
     return $this->hasMany(Like::class);
   }
 
+  public function isLikedByLoggedUser()
+  {
+    return $this->likes->where('user_id', auth()->user()->id )->isEmpty() ? false : true;
+  }
+
   protected $fillable = [
     'description',
     'img_url',

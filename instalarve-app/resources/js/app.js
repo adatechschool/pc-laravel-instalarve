@@ -2,4 +2,4 @@ require('./bootstrap');
 
 require('alpinejs');
 
-require('/app.js');
+require('./like.js');

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class LikeController extends Controller
 {
@@ -35,35 +37,55 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-      $uid = auth()->user()->id;
-      $request->validate([
-          'post_id' => 'required|integer'
-        ]);
+      $post = Post::find($request->post_id);
 
-      // $matchThese = ['post_id' => $request->post_id , 'user_id' => $uid];
-      // $likeExist = Like::select('*')
-      //           ->where('post_id', '=', $request->post_id)
-      //           ->where('user_id', '=', $uid)
-      //           ->get();
 
-      $likeExist = Like::where(['post_id' => $request->post_id , 'user_id' => $uid])->get();
-      print_r($likeExist);
 
-        if ($likeExist->count() == 0){
-          $like = Like::create(array(
-          'user_id' => $uid,
-          'post_id' => $request->post_id
-        ));
-      } else {
-          $likeExist[0]->delete();
+      if ($post->isLikedByLoggedUser()){
+        $res = Like::where([
+                'post_id' => $request->post_id ,
+                'user_id' => auth()->user()->id
+              ])->delete();
+        if($res){
+          return response()->json(['count' => Post::find($request->post_id)->likes->count()]);
         }
 
+      } else {
+        $like = Like::create(array(
+        'user_id' => auth()->user()->id,
+        'post_id' => $request->post_id
+      ));
+      return response()->json(['count' => Post::find($request->post_id)->likes->count()]);
+      }
 
-
-
-        return redirect('posts');
     }
 
+    //
+    // public function store(Request $request)
+    // {
+    //   $uid = auth()->user()->id;
+    //
+    //
+    //
+    //   $likeExist = Like::where(['post_id' => $request->post_id , 'user_id' => $uid])->get();
+    //
+    //
+    //     if ($likeExist->count() == 0){
+    //       $like = Like::create(array(
+    //       'user_id' => $uid,
+    //       'post_id' => $request->post_id
+    //     ));
+    //
+    //   } else {
+    //       $likeExist[0]->delete();
+    //
+    //     }
+    //
+    //
+    //   return redirect('posts');
+    //
+    //
+    // }
     /**
      * Display the specified resource.
      *
